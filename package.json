@@ -1,0 +1,26 @@
+{
+  "name": "react-tree",
+  "version": "0.0.1",
+  "description": "react tree file structure organation structure or hierachy data structure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xxShawn/React-Tree.git"
+  },
+  "keywords": [
+    "react",
+    "tree",
+    "hierachy",
+    "files",
+    "orgnization"
+  ],
+  "author": "Shawn",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xxShawn/React-Tree/issues"
+  },
+  "homepage": "https://github.com/xxShawn/React-Tree#readme"
+}
