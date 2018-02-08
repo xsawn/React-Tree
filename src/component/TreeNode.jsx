@@ -36,7 +36,7 @@ class TreeNode extends React.Component {
 	}
 	renderCheckbox() {
 		let {isChecked} = this.state;
-		return <span className={}><input type='checkbox' checked={isChecked} onChange={this.handleCheckboxChange}/></span>;
+		return <span className=""><input type='checkbox' checked={isChecked} onChange={this.handleCheckboxChange}/></span>;
 	}
 
 	handleNodeClick = e => {
@@ -45,16 +45,16 @@ class TreeNode extends React.Component {
 	renderNode() {
 		let {text} = this.props.nodeData;
 		let hasChild = true;
-		return <a className={} >
-					{hasChild?<i className={} onClick={e=>{this.switcherClick()}}></i>:<i className="no-switcher"></i>}
+		return <a className="" >
+					{hasChild?<i className="" onClick={e=>{this.switcherClick()}}></i>:<i className="no-switcher"></i>}
 					{this.props.isMulti && this.renderCheckbox()}
-					<span className={} onClick={this.handleNodeClick}>{text}</span>
+					<span className="" onClick={this.handleNodeClick}>{text}</span>
 				</a>
 	}
 
 	renderChildren() {
 		let {style, isMulti, children} = this.props.nodeData;
-		return 	<ul className={}>
+		return 	<ul className="">
 						{
 							children.map((child,index) => {
 								return  <TreeNode 

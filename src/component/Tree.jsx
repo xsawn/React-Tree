@@ -46,10 +46,10 @@ class Tree extends React.Component {
 	}
 	
 	render() {
-		let {style, isMulti} this.props;
+		let {style, isMulti} = this.props;
 		let {treeData} = this.state;
-		return  <div className={} style={style}>
-					<ul className={}>
+		return  <div className="" style={style}>
+					<ul className="">
 						{
 							treeData.map((child, index) => {
 								return  <TreeNode 
