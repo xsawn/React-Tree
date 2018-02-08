@@ -4,6 +4,7 @@ var path = require('path');
 var webpack = require('webpack');
 var WebpackDevServer = require("webpack-dev-server");
 var HtmlwebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var ROOT_PATH = path.resolve(__dirname); 
 var ENTRY_PATH = path.resolve(ROOT_PATH, 'src'); 
@@ -35,7 +36,7 @@ module.exports = {
       },
       { 
         test: /\.less$/, 
-        loaders: ['style', 'css', 'less']
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'less-loader')
       },
       {
         test: /\.(png|jpg)$/,
@@ -60,7 +61,8 @@ module.exports = {
     new HtmlwebpackPlugin({
       title: 'React-Tree', 
       template: './tpl/index.html', 
-    })
+    }),
+    new ExtractTextPlugin("[name].css")
   ]
   // devServer: {
   //   historyApiFallback: true,
