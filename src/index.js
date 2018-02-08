@@ -3,4 +3,5 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import Tree from './component/Tree'
 
-ReactDOM.render(<Tree />, document.querySelector('#root'))
+const data = [{text: 'a tree node', id:1, children: []}]
+ReactDOM.render(<Tree treeData={data}/>, document.querySelector('#root'))
