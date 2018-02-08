@@ -8,6 +8,7 @@ var HtmlwebpackPlugin = require('html-webpack-plugin');
 var ROOT_PATH = path.resolve(__dirname); 
 var ENTRY_PATH = path.resolve(ROOT_PATH, 'src'); 
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
+var TPL = path.resolve(ROOT_PATH, 'tpl', 'index.html');
 
 module.exports = {
   // devtool: 'eval',
@@ -22,7 +23,7 @@ module.exports = {
   output: {
 
     path: BUILD_PATH,
-    publicPath: '/',
+    publicPath: './',
     filename: 'bundle.js'
 
   },
@@ -45,22 +46,27 @@ module.exports = {
         query: { 
           presets: ['es2015', 'react'],
         } 
+      },
+      {
+        test: /\.hbs$/,
+        loader: 'handlebars-loader'
       }
     ] 
   },
   resolve: {
       extensions: ['', '.js', '.jsx']
   },
-  // plugins: [
-  //   new HtmlwebpackPlugin({
-  //     title: 'Hello World app'
-  //   })
-  // ],
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    progress: true,
-    host:'0.0.0.0'
-  },
+  plugins: [
+    new HtmlwebpackPlugin({
+      title: 'React-Tree', 
+      template: './tpl/index.html', 
+    })
+  ]
+  // devServer: {
+  //   historyApiFallback: true,
+  //   hot: true,
+  //   inline: true,
+  //   progress: true,
+  //   host:'0.0.0.0'
+  // },
 }
