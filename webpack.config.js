@@ -24,19 +24,15 @@ module.exports = {
   output: {
 
     path: BUILD_PATH,
-    publicPath: './',
+    publicPath: '/',
     filename: 'bundle.js'
 
   },
   module: { 
     loaders: [  
       { 
-        test: /\.css$/, 
-        loaders: ['style', 'css']
-      },
-      { 
-        test: /\.less$/, 
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'less-loader')
+        test: /\.(less|css)$/, 
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
       },
       {
         test: /\.(png|jpg)$/,
@@ -64,11 +60,11 @@ module.exports = {
     }),
     new ExtractTextPlugin("[name].css")
   ]
-  // devServer: {
-  //   historyApiFallback: true,
-  //   hot: true,
-  //   inline: true,
-  //   progress: true,
-  //   host:'0.0.0.0'
-  // },
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    progress: true,
+    host:'0.0.0.0'
+  },
 }
