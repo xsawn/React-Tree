@@ -59,7 +59,7 @@ module.exports = {
       template: './tpl/index.html', 
     }),
     new ExtractTextPlugin("[name].css")
-  ]
+  ],
   devServer: {
     historyApiFallback: true,
     hot: true,

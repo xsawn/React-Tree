@@ -24,4 +24,10 @@ const data = [
 		]
 	}
 ]
-ReactDOM.render(<Tree treeData={data}/>, document.querySelector('#root'))
+ReactDOM.render(<Tree 
+	treeData={data} 
+	isMulti={true}
+	afterClick={nodeData=>console.log('after node click...', nodeData)}
+	afterCheck={nodeData=>console.log('after node Check...', nodeData)}
+	afterExpand={nodeData=>console.log('after expand callback...')}/>, 
+	document.querySelector('#root'))

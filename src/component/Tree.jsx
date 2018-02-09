@@ -13,6 +13,8 @@ class Tree extends React.Component {
 		style: PropTypes.object,
 		afterClick: PropTypes.func,
 		afterExpand: PropTypes.func,
+		afterCheck: PropTypes.func
+
 	}
 
 	static defaultProps = {
@@ -20,25 +22,41 @@ class Tree extends React.Component {
 		isMulti: false, 
 		afterClick: emptyFunc,
 		afterExpand: emptyFunc,
+		afterCheck: emptyFunc
 	}
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			treeData: props.treeData
+			treeData: props.treeData,
+			selectedNode: props.selectedNode || "",
+			checkedNodes: props.checkedNodes || []
 		}
 	}
 
-	handleCheck = (id, parentid, checked, checkChildNode) => {
-		this.checkNode(id)
+	handleCheck = nodeData => {
+		let _checkedNodes = this.state.checkedNodes;
+		let index = _checkedNodes.indexOf(nodeData.id)
+		if(index > -1) {
+			_checkedNodes.splice(index, 1)
+		} else {
+			_checkedNodes.push(nodeData.id)
+		}
+		this.setState({
+			checkedNodes: _checkedNodes
+		}, () => this.props.afterCheck(nodeData))
+		
 	}
 
-	handleClick = (nodeInfo) => {
-		this.selectNode(id)
+	handleClick = nodeData => {
+		this.setState({
+			selectedNode:nodeData.id
+		}, () => this.props.afterClick(nodeData))
 	}
 
-	handleExpand = (id, parentid, hasChildL, isOpened) => {
-		this.expandNode(id)
+	handleExpand = nodeData => {
+		// 后续可以记录展开节点， 默认展开节点，暂不做
+		this.props.afterExpand(nodeData)
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -47,15 +65,17 @@ class Tree extends React.Component {
 	
 	render() {
 		let {style, isMulti} = this.props;
-		let {treeData} = this.state;
+		let {treeData, selectedNode, checkedNodes} = this.state;
 		return  <div className="" style={style}>
-					<ul className="">
+					<ul className="tree">
 						{
 							treeData.map((child, index) => {
 								return  <TreeNode 
 											key={'tree_' + child.id} 
 											nodeData={child}
 											isMulti={isMulti}
+											selectedNode={selectedNode}
+											checkedNodes={checkedNodes}
 											handleClick={this.handleClick}
 											handleCheck={this.handleCheck}
 											handleExpand={this.handleExpand}

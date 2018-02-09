@@ -1,5 +1,5 @@
 ul, li, {
-	magin: 0px;
+	margin: 0px;
 	padding: 0px;
 	list-style: none;
 	list-style-type: none;
@@ -8,6 +8,17 @@ ul, li, {
 .r-tree {
 	color: #f00;
 	font-size: 16px;
+}
+
+.tree {
+	margin-left: 20px;
+	.node-item {
+		display: flex;
+		align-items: center;
+		&.selected {
+			background: blue;
+		}
+	}
 }
 
 .triangle() {
@@ -21,12 +32,20 @@ ul, li, {
 	display: inline-block;
 	width: 22px;
 	height: 22px;
+	transition: ease-in .3s ease-out;
 	&:after {
 		position: absolute;
 		top: 6px;
 		left: 1px;
 		content: '';
 		.triangle()
-
+	}
+	&.expanded:after {
+		position: absolute;
+		top: 6px;
+		left: 1px;
+		content: '';
+		transform: rotate(-90deg);
+		.triangle()
 	}
 }

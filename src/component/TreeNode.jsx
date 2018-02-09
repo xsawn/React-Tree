@@ -11,59 +11,68 @@ class TreeNode extends React.Component {
 
 	static defaultProps = {
 		expanded: false,
-		isChecked: false
+		isChecked: false,
+		isSelected:false
 	}
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			expanded: props.expanded,
-			isChecked: props.isChecked
+			isChecked: props.isChecked,
+			isSelected: props.isSelected
 		};
 	}
 	switcherClick = () => {
 		this.setState({
 			expanded: !this.state.expanded
-		}, ()=>{
-			this.props.afterExpand && this.props.afterExpand(this.props.data)
-		})
+		}, ()=>this.props.handleExpand(this.props.nodeData))
 	}
 
-	handleCheckboxChange = (e) => {
-		this.setState({
-			isChecked: !this.state.isChecked
-		})
+	handleCheckboxChange = e => {
+		this.props.handleCheck(this.props.nodeData, e.target.value)
 	}
+
 	renderCheckbox() {
-		let {isChecked} = this.state;
+		let {nodeData, checkedNodes} = this.props;
+		let isChecked = checkedNodes.includes(nodeData.id);
 		return <span className=""><input type='checkbox' checked={isChecked} onChange={this.handleCheckboxChange}/></span>;
 	}
 
 	handleNodeClick = e => {
-		e.stopPropagation()
+		this.props.handleClick(this.props.nodeData)
 	}
+
 	renderNode() {
-		let {text} = this.props.nodeData;
-		let hasChild = true;
-		return <a className="" >
-					{hasChild?<i className="switcher" onClick={e=>{this.switcherClick()}}></i>:<i className="no-switcher"></i>}
+		let {nodeData, selectedNode} = this.props;
+		let {text, children} = nodeData;
+		let {expanded, isSelected} = this.state;
+		let hasChild = children && children.length;
+		let switcherClass = `switcher ${expanded?"expanded":""}`;
+		let nodeItemClass =  `node-item ${selectedNode == nodeData.id?"selected":""}`
+
+		return <a className={nodeItemClass} >
+					{hasChild?<i className={switcherClass} onClick={e=>{this.switcherClick()}}></i>:<i className="no-switcher"></i>}
 					{this.props.isMulti && this.renderCheckbox()}
 					<span className="" onClick={this.handleNodeClick}>{text}</span>
 				</a>
 	}
 
 	renderChildren() {
-		let {style, isMulti, children} = this.props.nodeData;
-		return 	<ul className="">
+		let {nodeData, isMulti, selectedNode, checkedNodes, handleClick, handleCheck, handleExpand} = this.props;
+		let {style, children} = nodeData;
+		return 	<ul className="tree">
 						{
 							children.map((child,index) => {
 								return  <TreeNode 
 											key={'tree_' + child.id} 
 											nodeData={child}
 											isMulti={isMulti}
-											handleClick={this.handleClick}
-											handleCheck={this.handleCheck}
-											handleExpand={this.handleExpand}
+											selectedNode={selectedNode}
+											checkedNodes={checkedNodes}
+											handleClick={handleClick}
+											handleCheck={handleCheck}
+											handleExpand={handleExpand}
 											/>
 							})
 						}
