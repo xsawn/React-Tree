@@ -46,7 +46,7 @@ class TreeNode extends React.Component {
 		let {text} = this.props.nodeData;
 		let hasChild = true;
 		return <a className="" >
-					{hasChild?<i className="" onClick={e=>{this.switcherClick()}}></i>:<i className="no-switcher"></i>}
+					{hasChild?<i className="switcher" onClick={e=>{this.switcherClick()}}></i>:<i className="no-switcher"></i>}
 					{this.props.isMulti && this.renderCheckbox()}
 					<span className="" onClick={this.handleNodeClick}>{text}</span>
 				</a>
@@ -72,9 +72,11 @@ class TreeNode extends React.Component {
 
 	render() {
 		let {expanded} = this.state
+		let {children} = this.props.nodeData
+		let hasChildren = children && children.length
 		return  <li className="tree-node">
 					{this.renderNode()}
-					{expanded && this.renderChildren()}
+					{expanded && hasChildren && this.renderChildren()}
 				</li>
 	}
 }

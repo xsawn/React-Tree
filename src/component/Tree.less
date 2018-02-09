@@ -1,4 +1,28 @@
+ul, li, {
+	magin: 0px;
+	padding: 0px;
+	list-style: none;
+	list-style-type: none;
+}
+
 .r-tree {
 	color: #f00;
 	font-size: 16px;
+}
+
+.switcher {
+	position: relative;
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	&:after {
+		position: absolute;
+		top: 6px;
+		left: 1px;
+		content: '';
+		border-top: 10px solid #3cbaff;
+		border-right: 10px solid transparent;
+		border-left: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+	}
 }
