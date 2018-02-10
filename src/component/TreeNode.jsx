@@ -23,7 +23,7 @@ class TreeNode extends React.Component {
 			isSelected: props.isSelected
 		};
 	}
-	switcherClick = () => {
+	handleExpand = () => {
 		this.setState({
 			expanded: !this.state.expanded
 		}, ()=>this.props.handleExpand(this.props.nodeData))
@@ -36,7 +36,7 @@ class TreeNode extends React.Component {
 	renderCheckbox() {
 		let {nodeData, checkedNodes} = this.props;
 		let isChecked = checkedNodes.includes(nodeData.id);
-		return <span className=""><input type='checkbox' checked={isChecked} onChange={this.handleCheckboxChange}/></span>;
+		return <span className="checkbox"><input type='checkbox' checked={isChecked} onChange={this.handleCheckboxChange}/></span>;
 	}
 
 	handleNodeClick = e => {
@@ -49,12 +49,13 @@ class TreeNode extends React.Component {
 		let {expanded, isSelected} = this.state;
 		let hasChild = children && children.length;
 		let switcherClass = `switcher ${expanded?"expanded":""}`;
-		let nodeItemClass =  `node-item ${selectedNode == nodeData.id?"selected":""}`
+		let nodeTextClass = selectedNode == nodeData.id?"node-content selected":"node-content"
+		// let nodeItemClass =  `node-item ${selectedNode == nodeData.id?"selected":""}`
 
-		return <a className={nodeItemClass} >
-					{hasChild?<i className={switcherClass} onClick={e=>{this.switcherClick()}}></i>:<i className="no-switcher"></i>}
+		return <a className="node-item" >
+					{hasChild?<i className={switcherClass} onClick={e=>{this.handleExpand()}}></i>:<i className="no-switcher"></i>}
 					{this.props.isMulti && this.renderCheckbox()}
-					<span className="" onClick={this.handleNodeClick}>{text}</span>
+					<span className={nodeTextClass} onClick={this.handleNodeClick}>{text}</span>
 				</a>
 	}
 

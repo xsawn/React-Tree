@@ -15,37 +15,50 @@ ul, li, {
 	.node-item {
 		display: flex;
 		align-items: center;
-		&.selected {
-			background: blue;
+		.node-content {
+			padding: 0px 6px;
+			border-radius: 3px;
+			&.selected {
+				color: #fff;
+				background: #3cbaff;
+			}
 		}
+
 	}
 }
 
 .triangle() {
-	border-top: 10px solid #3cbaff;
-	border-right: 10px solid transparent;
-	border-left: 10px solid transparent;
-	border-bottom: 10px solid transparent;
+	border-top: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-left: 6px solid #3cbaff;
+	border-bottom: 6px solid transparent;
 }
-.switcher {
-	position: relative;
+.switcher-box() {
 	display: inline-block;
 	width: 22px;
 	height: 22px;
-	transition: ease-in .3s ease-out;
+}
+
+.checkbox {
+	display: flex;
+	align-items: center;
+}
+.switcher {
+	position: relative;
+	.switcher-box();
+	transform-origin: 50% 50%;
+	transition: ease-in 0.1s;
 	&:after {
 		position: absolute;
-		top: 6px;
-		left: 1px;
+		top: 5px;
+		left: 11px;
 		content: '';
 		.triangle()
 	}
-	&.expanded:after {
-		position: absolute;
-		top: 6px;
-		left: 1px;
-		content: '';
-		transform: rotate(-90deg);
-		.triangle()
+	&.expanded {
+		transform: rotate(90deg);
 	}
+}
+.no-switcher {
+	.switcher-box()
 }
